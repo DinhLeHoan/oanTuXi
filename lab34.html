@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 20px;
+        
+    }
+    #yourScore,#computerScore{
+        font-size: 30px;
+        font-weight: bold;
+    }
+    #yourScore{
+        float: right;
+    }
+    .yourTurn{
+        
+        margin-top: 230px;
+        text-align: center;
+    }
+    .yourTurn input{
+        margin-left: 100px;
+    }
+    #computerTurn{
+        background-image: url(./img/hoi.png);
+        background-size: 100%;
+        width: 130px;
+        height: 130px;
+        margin: 0 auto;
+        background-repeat: none;
+    }
+    #result{
+        font-size: 30px;
+        font-weight: bold;
+        height: 100px;
+        width: 100px;
+    }
+</style>
+<body>
+    <div class="game">
+        <div id="yourScore">
+            Bạn: 0
+        </div>
+        <div id="computerScore">
+            Máy: 0
+        </div>
+        <div id="computerTurn">
+
+        </div>
+        <div id="result"></div>
+        <div class="yourTurn">
+            <input type="image" class="your" value="keo" src="./img/keo.png">
+            <input type="image" class="your" value="bua" src="./img/bua.png">
+            <input type="image" class="your" value="bao" src="./img/bao.png">
+        </div>
+    </div>
+</body>
+<script>
+    var arr = ['keo','bua','bao'];
+    var you = document.getElementsByClassName('your');
+    var rs = document.getElementById("result");
+    var computer = document.getElementById('computerTurn');
+    var computerScore = document.getElementById('computerScore');
+    var yourScore = document.getElementById('yourScore');
+    var computerScore0 = 0;
+    var yourScore0 = 0;
+
+    // var bua = document.getElementsByClassName('bua');
+    // var bao = document.getElementsByClassName('bao');
+    
+    function computerTurn(){
+        var randomItem = arr[Math.floor(Math.random()*arr.length)];
+        switch(randomItem){
+            case 'keo':
+                computer.style.backgroundImage = "url('./img/keo.png')";
+                
+                break;
+            case 'bua':
+            computer.style.backgroundImage = "url('./img/bua.png')";
+            
+            break;
+            case 'bao':
+            computer.style.backgroundImage = "url('./img/bao.png')";
+            
+            break;
+            default:
+            computer.style.backgroundImage = "url('./img/hoi.png')";
+
+            break;
+
+        }
+        return randomItem;
+    }
+
+    function yourTurn(){
+        for (let your of you){
+        // when click on number , the value which has will be push in result
+            your.addEventListener('click',function(){
+                
+                if(this.value == computerTurn() ){rs.innerHTML = "Bạn đã hòa"}
+                else if(this.value == 'keo' && computerTurn() == 'bua' ) {rs.innerHTML = "Bạn đã thua";computerScore.innerHTML = 'Máy: '+computerScore0++}
+                else if(this.value == 'keo' && computerTurn() == 'bao' ) {rs.innerHTML = "Bạn đã thắng";yourScore0++;yourScore.innerHTML = 'Bạn: '+yourScore0}
+                else if(this.value == 'bua' && computerTurn() == 'bao' ) {rs.innerHTML = "Bạn đã thua";computerScore.innerHTML = 'Máy: '+computerScore0++}
+                else if(this.value == 'bua' && computerTurn() == 'keo' ) {rs.innerHTML = "Bạn đã thắng";yourScore0++;yourScore.innerHTML = 'Bạn: '+yourScore0}
+                else if(this.value == 'bao' && computerTurn() == 'keo' ) {rs.innerHTML = "Bạn đã thua";computerScore.innerHTML = 'Máy: '+computerScore0++}
+                else if(this.value == 'bao' && computerTurn() == 'bua' ) {rs.innerHTML = "Bạn đã thắng";yourScore0++;yourScore.innerHTML = 'Bạn: '+yourScore0}
+            });
+        }
+    }
+
+    function play(){
+        
+        yourTurn();
+        
+    }
+    play();
+</script>
+</html>
