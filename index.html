@@ -23,7 +23,7 @@
     }
     .yourTurn{
         text-align: center;
-        margin-top: 160px;
+        margin-top: 300px;
     }
     .yourTurn .your{
         width: 25%;
@@ -34,23 +34,26 @@
     }
 
     .yourTurn .your:hover{
-        border: 1px solid #000;
+
         cursor: pointer;
         transform: scale(1.5); 
     }
     .pcStand,.pcKeo,.pcBua,.pcBao {
         position: absolute;
-        right: 44%;
+        right: 47%;
         /* left: 44%; */
         font-size: 100px;
         display: none;
+
     }
     #result{
-        margin-top: 100px;
+        position: absolute;
+        margin-top: 200px;
         font-size: 30px;
         font-weight: bold;
         height: 100px;
-        width: 100px;
+        width: 200px;
+        left: 43%;
     }
 </style>
 <body>
@@ -143,6 +146,8 @@
             case "keokeo":
             case "buabua":
             case "baobao":
+           
+
                 draw();
                 break;
         }
