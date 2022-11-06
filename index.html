@@ -22,22 +22,30 @@
         float: right;
     }
     .yourTurn{
-        
-        margin-top: 230px;
         text-align: center;
+        margin-top: 160px;
     }
-    .yourTurn input{
-        margin-left: 100px;
+    .yourTurn .your{
+        width: 25%;
+        height: 150px;
+        font-size: 100px;
+        float: left;
+        margin-left: 5%;
     }
-    #computerTurn{
-        background-image: url(./img/hoi.png);
-        background-size: 100%;
-        width: 130px;
-        height: 130px;
-        margin: 0 auto;
-        background-repeat: none;
+
+    .yourTurn .your:hover{
+        border: 1px solid #000;
+        cursor: pointer;
+    }
+    .pcStand,.pcKeo,.pcBua,.pcBao {
+        position: absolute;
+        right: 44%;
+        /* left: 44%; */
+        font-size: 100px;
+        display: none;
     }
     #result{
+        margin-top: 100px;
         font-size: 30px;
         font-weight: bold;
         height: 100px;
@@ -53,74 +61,114 @@
             Máy: 0
         </div>
         <div id="computerTurn">
-
+            <div class="pcStand" id="pcStand">?</div>
+            <div class="pcKeo" id="pcKeo">✌️</div>
+            <div class="pcBua" id="pcBua">✊</div>
+            <div class="pcBao" id="pcBao">🖐️</div>
         </div>
         <div id="result"></div>
         <div class="yourTurn">
-            <input type="image" class="your" value="keo" src="./img/keo.png">
-            <input type="image" class="your" value="bua" src="./img/bua.png">
-            <input type="image" class="your" value="bao" src="./img/bao.png">
+            <div class="your" id="keo">✌️</div>
+            <div class="your" id="bua">✊</div>
+            <div class="your" id="bao">🖐️</div>
         </div>
     </div>
 </body>
 <script>
-    var arr = ['keo','bua','bao'];
-    var you = document.getElementsByClassName('your');
-    var rs = document.getElementById("result");
-    var computer = document.getElementById('computerTurn');
-    var computerScore = document.getElementById('computerScore');
-    var yourScore = document.getElementById('yourScore');
+    const arr = ['keo','bua','bao'];
+    const you = document.getElementsByClassName('your');
+    const rs = document.getElementById("result");
+    
+    const keo = document.getElementById("keo");
+    const bua = document.getElementById("bua");
+    const bao = document.getElementById("bao");
+
+    const pcKeo = document.getElementById("pcKeo");
+    const pcBua = document.getElementById("pcBua");
+    const pcBao = document.getElementById("pcBao");
+    const pcStand = document.getElementById("pcStand");
+
+    const computerScore = document.getElementById("computerScore");
+    const yourScore = document.getElementById("yourScore");
+
     var computerScore0 = 0;
     var yourScore0 = 0;
-
-    // var bua = document.getElementsByClassName('bua');
-    // var bao = document.getElementsByClassName('bao');
-    
-    function computerTurn(){
-        var randomItem = arr[Math.floor(Math.random()*arr.length)];
-        switch(randomItem){
-            case 'keo':
-                computer.style.backgroundImage = "url('./img/keo.png')";
-                
-                break;
-            case 'bua':
-            computer.style.backgroundImage = "url('./img/bua.png')";
-            
-            break;
-            case 'bao':
-            computer.style.backgroundImage = "url('./img/bao.png')";
-            
-            break;
-            default:
-            computer.style.backgroundImage = "url('./img/hoi.png')";
-
-            break;
-
-        }
-        return randomItem;
-    }
-
-    function yourTurn(){
-        for (let your of you){
-        // when click on number , the value which has will be push in result
-            your.addEventListener('click',function(){
-                
-                if(this.value == computerTurn() ){rs.innerHTML = "Bạn đã hòa"}
-                else if(this.value == 'keo' && computerTurn() == 'bua' ) {rs.innerHTML = "Bạn đã thua";computerScore.innerHTML = 'Máy: '+computerScore0++}
-                else if(this.value == 'keo' && computerTurn() == 'bao' ) {rs.innerHTML = "Bạn đã thắng";yourScore0++;yourScore.innerHTML = 'Bạn: '+yourScore0}
-                else if(this.value == 'bua' && computerTurn() == 'bao' ) {rs.innerHTML = "Bạn đã thua";computerScore.innerHTML = 'Máy: '+computerScore0++}
-                else if(this.value == 'bua' && computerTurn() == 'keo' ) {rs.innerHTML = "Bạn đã thắng";yourScore0++;yourScore.innerHTML = 'Bạn: '+yourScore0}
-                else if(this.value == 'bao' && computerTurn() == 'keo' ) {rs.innerHTML = "Bạn đã thua";computerScore.innerHTML = 'Máy: '+computerScore0++}
-                else if(this.value == 'bao' && computerTurn() == 'bua' ) {rs.innerHTML = "Bạn đã thắng";yourScore0++;yourScore.innerHTML = 'Bạn: '+yourScore0}
-            });
-        }
-    }
-
     function play(){
-        
-        yourTurn();
-        
+        keo.addEventListener("click",function(){
+            yourTurn("keo");
+        });
+        bua.addEventListener("click",function(){
+            yourTurn("bua");
+        });
+        bao.addEventListener("click",function(){
+            yourTurn("bao");
+        });
     }
     play();
+    function computerTurn(){
+        const randomChoice = Math.floor(Math.random()*3);
+        if(arr[randomChoice] == "keo"){
+            disappear();
+            document.getElementById("pcKeo").style.display = "block";
+  
+        }
+        else if(arr[randomChoice] == "bua"){
+            disappear();
+            document.getElementById("pcBua").style.display = "block";
+
+           
+        }
+        else if(arr[randomChoice] == "bao"){
+            disappear();
+            document.getElementById("pcBao").style.display = "block";
+            
+        }
+        return arr[randomChoice];
+    }
+
+    function yourTurn(yourChoice){
+        const computerChoice = computerTurn();
+        switch(yourChoice+computerChoice){
+            case "keobao":
+            case "buakeo":
+            case "baobua":
+                win();
+                break;
+            case "keobua":
+            case "buabao":
+            case "baokeo":
+                lose();
+                break;
+            case "keokeo":
+            case "buabua":
+            case "baobao":
+                draw();
+                break;
+        }
+    }
+
+    function win(){
+        yourScore0++;
+        rs.innerHTML = "Ban da thang" ;
+        yourScore.innerHTML = 'Bạn: '+yourScore0;
+    }
+
+    function lose(){
+        computerScore0++;
+        rs.innerHTML = "Ban da thua" ; 
+        computerScore.innerHTML = 'Máy: '+computerScore0;
+    }
+
+    function draw(){
+        rs.innerHTML = "Hòaaaa";
+    }
+
+    function disappear(){
+        document.getElementById("pcKeo").style.display = "none";
+        document.getElementById("pcBua").style.display = "none";
+        document.getElementById("pcBao").style.display = "none";
+        document.getElementById("pcStand").style.display = "none";
+
+    }
 </script>
 </html>
