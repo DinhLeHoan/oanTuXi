@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kéo Búa Bao</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./img/heart.png">
 </head>
 <style>
     body{
@@ -46,13 +47,16 @@
         display: none;
 
     }
+    .pcStand{
+        display: block;
+    }
     #result{
         position: absolute;
         margin-top: 200px;
         font-size: 30px;
         font-weight: bold;
         height: 100px;
-        width: 200px;
+        width: 300px;
         left: 43%;
     }
 </style>
@@ -70,7 +74,7 @@
             <div class="pcBua" id="pcBua">✊</div>
             <div class="pcBao" id="pcBao">🖐️</div>
         </div>
-        <div id="result"></div>
+        <div id="result">Giành 5 điểm trước sẽ thắng</div>
         <div class="yourTurn">
             <div class="your" id="keo">✌️</div>
             <div class="your" id="bua">✊</div>
@@ -107,6 +111,7 @@
         bao.addEventListener("click",function(){
             yourTurn("bao");
         });
+       
     }
     play();
     function computerTurn(){
@@ -146,7 +151,7 @@
             case "keokeo":
             case "buabua":
             case "baobao":
-           
+            document.getElementById("result").style.backgroundImage = "url('./img/buabua.gif')";
 
                 draw();
                 break;
@@ -155,14 +160,16 @@
 
     function win(){
         yourScore0++;
-        rs.innerHTML = "Ban da thang" ;
+        rs.innerHTML = "Bạn đã thắng" ;
         yourScore.innerHTML = 'Bạn: '+yourScore0;
+        setTimeout(winAll,500);
     }
 
     function lose(){
         computerScore0++;
-        rs.innerHTML = "Ban da thua" ; 
+        rs.innerHTML = "Bạn đã thua" ; 
         computerScore.innerHTML = 'Máy: '+computerScore0;
+        setTimeout(loseAll,500);
     }
 
     function draw(){
@@ -174,7 +181,35 @@
         document.getElementById("pcBua").style.display = "none";
         document.getElementById("pcBao").style.display = "none";
         document.getElementById("pcStand").style.display = "none";
+    }
 
+    function winAll(){
+        if(yourScore0 == 5){
+            let ok = confirm("Bạn đã thắng, bạn muốn chơi tiếp không ?"); 
+            if(ok == true){
+                window.location.reload()
+                play();
+            }
+
+            else{
+                alert("Bạn sợ à ?")    
+            }
+
+        }
+    }
+    function loseAll(){
+        if(computerScore0 == 5){
+            let ok = confirm("Bạn đã thua, bạn muốn phục thù không ?"); 
+            if(ok == true){
+                window.location.reload()
+                play();
+            }
+
+            else{
+                alert("Gàaaaaaaa ?")    
+            }
+
+        }
     }
 </script>
 </html>
