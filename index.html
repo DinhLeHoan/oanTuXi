@@ -176,8 +176,6 @@
             case "keokeo":
             case "buabua":
             case "baobao":
-            document.getElementById("result").style.backgroundImage = "url('./img/buabua.gif')";
-
                 draw();
                 break;
         }
@@ -207,7 +205,7 @@
     }
 
     function draw(){
-        rs.innerHTML = "Hòaaaa";
+        rs.innerHTML = "Hòaaaa"+"<img src='./img/buabua.gif' style= 'position: absolute;top: -170px;width: 500px;left: 10px;z-index: -1;'>";   
     }
 
     function disappear(){
