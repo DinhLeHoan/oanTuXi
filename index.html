@@ -59,6 +59,27 @@
         width: 300px;
         left: 43%;
     }
+
+    #congra img,#loser img{
+        position: absolute;
+        top: 10%;
+        left: 0;
+        
+        width: 30%;
+    }
+    
+    #congra2 img,#loser2 img{
+        position: absolute;
+        top: 10%;
+        right: 0;
+        width: 30%;
+    }
+
+    #congra,#congra2,#loser,#loser2{
+        display: none;
+    }
+
+    
 </style>
 <body>
     <div class="game">
@@ -80,6 +101,10 @@
             <div class="your" id="bua">✊</div>
             <div class="your" id="bao">🖐️</div>
         </div>
+        <span id="congra"><img src="./img/congrats-icegif-1.gif" alt=""></span>
+        <span id="congra2"><img src="./img/congrats-icegif-1.gif" alt=""></span>
+        <span id="loser"><img src="./img/cat.gif" alt=""></span>
+        <span id="loser2"><img src="./img/cat.gif" alt=""></span>
     </div>
 </body>
 <script>
@@ -162,14 +187,23 @@
         yourScore0++;
         rs.innerHTML = "Bạn đã thắng" ;
         yourScore.innerHTML = 'Bạn: '+yourScore0;
-        setTimeout(winAll,500);
+        if(yourScore0==5){
+            document.getElementById("congra").style.display = "block";
+            document.getElementById("congra2").style.display = "block"; 
+            setTimeout(winAll,500);
+        }
+        
     }
 
     function lose(){
         computerScore0++;
         rs.innerHTML = "Bạn đã thua" ; 
         computerScore.innerHTML = 'Máy: '+computerScore0;
-        setTimeout(loseAll,500);
+        if(computerScore0==5){
+            document.getElementById("loser").style.display = "block";
+            document.getElementById("loser2").style.display = "block"; 
+            setTimeout(loseAll,500);
+        }
     }
 
     function draw(){
@@ -184,9 +218,11 @@
     }
 
     function winAll(){
-        if(yourScore0 == 5){
-            let ok = confirm("Bạn đã thắng, bạn muốn chơi tiếp không ?"); 
+        
+            let ok = confirm("Bạn đã thắng, bạn muốn chơi tiếp không ?");
+            
             if(ok == true){
+                
                 window.location.reload()
                 play();
             }
@@ -195,10 +231,10 @@
                 alert("Bạn sợ à ?")    
             }
 
-        }
+        
     }
     function loseAll(){
-        if(computerScore0 == 5){
+        
             let ok = confirm("Bạn đã thua, bạn muốn phục thù không ?"); 
             if(ok == true){
                 window.location.reload()
@@ -209,7 +245,7 @@
                 alert("Gàaaaaaaa ?")    
             }
 
-        }
+        
     }
 </script>
 </html>
