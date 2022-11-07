@@ -183,7 +183,7 @@
 
     function win(){
         yourScore0++;
-        rs.innerHTML = "Bạn đã thắng" ;
+        rs.innerHTML = "Bạn đã ghi điểm" ;
         yourScore.innerHTML = 'Bạn: '+yourScore0;
         if(yourScore0==5){
             document.getElementById("congra").style.display = "block";
@@ -195,7 +195,7 @@
 
     function lose(){
         computerScore0++;
-        rs.innerHTML = "Bạn đã thua" ; 
+        rs.innerHTML = "Máy đã ghi điểm" ; 
         computerScore.innerHTML = 'Máy: '+computerScore0;
         if(computerScore0==5){
             document.getElementById("loser").style.display = "block";
@@ -205,7 +205,7 @@
     }
 
     function draw(){
-        rs.innerHTML = "Hòaaaa"+"<img src='./img/buabua.gif' style= 'position: absolute;top: -170px;width: 500px;left: 10px;z-index: -1;'>";   
+        rs.innerHTML = "Hòa nhau"+"<img src='./img/buabua.gif' style= 'position: absolute;top: -170px;width: 500px;left: 10px;z-index: -1;'>";   
     }
 
     function disappear(){
